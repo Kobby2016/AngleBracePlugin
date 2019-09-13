@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+// Tekla Structures Namespaces
+using TSM = Tekla.Structures.Model;
+using TSD = Tekla.Structures.Dialog;
+using TSDT = Tekla.Structures.Datatype;
+using T3D = Tekla.Structures.Geometry3d;
+using TSMUI = Tekla.Structures.Model.UI;
+using Tekla.Structures.Plugins;
+
+namespace AngleBracingPlugin
+{
+
+    [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
+    [PluginUserInterface("AngleBracingPlugin.AngleBraceFrm")] // Mandatory field which defines the user interface the plug-in uses - A windows form class
+    class AngleBracingPlugin : PluginBase
+    {
+
+        private StructuresData Data { get; set; }
+
+        // The constructor argument defines the database class StructuresData and set the data to be used in the plug-in.
+        public AngleBracingPlugin(StructuresData data)
+        {
+            TSM.Model model = new TSM.Model();
+            Data = data;
+        }
+
+
+        public override List<InputDefinition> DefineInput()
+        {
+            return null;
+        }
+
+        public override bool Run(List<InputDefinition> Input)
+        {
+            try
+            {
+
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Something went wrong!\n" + Ex);
+                throw;
+            }
+
+            return true;
+        }
+
+
+    }
+}

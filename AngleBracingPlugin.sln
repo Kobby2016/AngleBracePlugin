@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleBracingPlugin", "AngleBracingPlugin\AngleBracingPlugin.csproj", "{0333783D-EC0E-40F0-90D5-74783FBE5169}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0333783D-EC0E-40F0-90D5-74783FBE5169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0333783D-EC0E-40F0-90D5-74783FBE5169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0333783D-EC0E-40F0-90D5-74783FBE5169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0333783D-EC0E-40F0-90D5-74783FBE5169}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEE90B6F-3DFD-4E71-B723-E1536BC4FB1D}
+	EndGlobalSection
+EndGlobal
