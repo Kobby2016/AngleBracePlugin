@@ -12,6 +12,7 @@ using TSDT = Tekla.Structures.Datatype;
 using T3D = Tekla.Structures.Geometry3d;
 using TSMUI = Tekla.Structures.Model.UI;
 using Tekla.Structures.Plugins;
+using Tekla.Structures.Model.Operations;
 
 namespace AngleBracingPlugin
 {
@@ -33,6 +34,8 @@ namespace AngleBracingPlugin
 
         public override List<InputDefinition> DefineInput()
         {
+            Operation.DisplayPrompt("You are now in List<InputDefinition> Define Input()");
+
             return null;
         }
 
@@ -40,7 +43,7 @@ namespace AngleBracingPlugin
         {
             try
             {
-
+                Operation.DisplayPrompt("You are now in bool Run(List<InputDefinition> Input)");
             }
             catch (Exception Ex)
             {

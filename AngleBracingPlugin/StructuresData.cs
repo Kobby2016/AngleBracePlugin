@@ -16,6 +16,13 @@ namespace AngleBracingPlugin
 {
     class StructuresData
     {
-
+        [StructuresField("AngleBracingType")]
+        public TSDT.Integer AngleBracingType;
+        [StructuresField("AngleBracingProfile")]
+        public TSDT.Integer AngleBracingProfile;
+        [StructuresField("AnglePosition")]
+        public TSDT.Integer AnglePosition;
+        [StructuresField("AngleOffset")]
+        public TSDT.Distance AngleBracingTyper;
     }
 }
