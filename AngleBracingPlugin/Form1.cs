@@ -20,8 +20,7 @@ using Tekla.Structures.Plugins;
 namespace AngleBracingPlugin
 {
 
-    [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
-    [PluginUserInterface("AngleBracingPlugin.AngleBraceFrm")] // Mandatory field which defines the user interface the plug-in uses - A windows form class
+    
     public partial class AngleBraceFrm : TSD.PluginFormBase
     {
         public AngleBraceFrm()

@@ -23,6 +23,6 @@ namespace AngleBracingPlugin
         [StructuresField("AnglePosition")]
         public TSDT.Integer AnglePosition;
         [StructuresField("AngleOffset")]
-        public TSDT.Distance AngleBracingTyper;
+        public TSDT.Distance AngleOffset;
     }
 }

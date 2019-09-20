@@ -17,12 +17,21 @@ using Tekla.Structures.Model.Operations;
 namespace AngleBracingPlugin
 {
 
+
     [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
     [PluginUserInterface("AngleBracingPlugin.AngleBraceFrm")] // Mandatory field which defines the user interface the plug-in uses - A windows form class
     class AngleBracingPlugin : PluginBase
     {
 
         private StructuresData Data { get; set; }
+
+        // fields for AngleBracingPlugin class
+        private string[] _angleType = { "L3X3X1/4", "L4X4X3/8", "L5X5X1/2" };
+        private TSDT.Integer _angleBracingType;
+        private TSDT.Integer _angleBracingProfile;
+        private TSDT.Integer _anglePosition;
+        private TSDT.Distance _angleOffset;
+
 
         // The constructor argument defines the database class StructuresData and set the data to be used in the plug-in.
         public AngleBracingPlugin(StructuresData data)
