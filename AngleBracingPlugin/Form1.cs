@@ -21,9 +21,9 @@ namespace AngleBracingPlugin
 {
 
     
-    public partial class AngleBraceFrm : TSD.PluginFormBase
+    public partial class Form1 : TSD.PluginFormBase
     {
-        public AngleBraceFrm()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -33,54 +33,55 @@ namespace AngleBracingPlugin
 
         }
 
-# region okApplyModifyGetOnOffCancel
-        private void okApplyModifyGetOnOffCancel1_ApplyClicked(object sender, EventArgs e)
+        #region okApplyModifyGetOnOffCancel
+        private void OkApplyModifyGetOnOffCancel1_OkClicked_1(object sender, EventArgs e)
+        {
+            this.Apply();
+            this.Close();
+
+        }
+
+        private void OkApplyModifyGetOnOffCancel1_ApplyClicked_1(object sender, EventArgs e)
         {
             this.Apply();
         }
 
-        private void okApplyModifyGetOnOffCancel1_CancelClicked(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void okApplyModifyGetOnOffCancel1_GetClicked(object sender, EventArgs e)
-        {
-            this.Get();
-        }
-
-        private void okApplyModifyGetOnOffCancel1_ModifyClicked(object sender, EventArgs e)
+        private void OkApplyModifyGetOnOffCancel1_ModifyClicked_1(object sender, EventArgs e)
         {
             this.Modify();
         }
 
-        private void okApplyModifyGetOnOffCancel1_OkClicked(object sender, EventArgs e)
+        private void OkApplyModifyGetOnOffCancel1_GetClicked_1(object sender, EventArgs e)
         {
-            this.Apply();
-            this.Close();
+            this.Get();
         }
 
-        private void okApplyModifyGetOnOffCancel1_OnOffClicked(object sender, EventArgs e)
+        private void OkApplyModifyGetOnOffCancel1_OnOffClicked_1(object sender, EventArgs e)
         {
             this.ToggleSelection();
         }
+
+        private void OkApplyModifyGetOnOffCancel1_CancelClicked_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         #endregion
-        
+
         // Combobox for setting angle bracing connection to single angle or double angle
         private void AngleBracingType_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (AngleBracingType.SelectedIndex)
             {
                 // If single angle bracing
-                case 0: SetAttributeValue(AngleBracingType, 0);
+                case 0: SetAttributeValue(AngleBracingType, new TSDT.Integer(0));
                 break;
                 // If double angle bracing
                 case 1:
-                    SetAttributeValue(AngleBracingType, 1);
+                    SetAttributeValue(AngleBracingType, new TSDT.Integer(1));
                     break;
                 // Default to single angle bracing
                 default:
-                    SetAttributeValue(AngleBracingType, 0);
+                    SetAttributeValue(AngleBracingType, new TSDT.Integer(0));
                     break;
             }
         }
@@ -94,19 +95,19 @@ namespace AngleBracingPlugin
 
                 // 0 = L3X3X1/4 
                 case 0:
-                    SetAttributeValue(AngleBracingProfile, 0);
+                    SetAttributeValue(AngleBracingProfile, new TSDT.Integer(0));
                     break;
                 // 1 = L4X4X3/8
                 case 1:
-                    SetAttributeValue(AngleBracingProfile, 1);
+                    SetAttributeValue(AngleBracingProfile, new TSDT.Integer(1));
                     break;
                 // 2 = L5X5X1/2 
                 case 2:
-                    SetAttributeValue(AngleBracingProfile, 2);
+                    SetAttributeValue(AngleBracingProfile, new TSDT.Integer(2));
                     break;
                 // default to 0 = L3X3X1/4 
                 default:
-                    SetAttributeValue(AngleBracingProfile, 0);
+                    SetAttributeValue(AngleBracingProfile, new TSDT.Integer(0));
                     break;
             }
         }
@@ -118,21 +119,21 @@ namespace AngleBracingPlugin
             {
                 // 0 = Angle is centered
                 case 0:
-                    SetAttributeValue(AnglePosition, 0);
+                    SetAttributeValue(AnglePosition, new TSDT.Integer(0));
                     // Hide option for angle offset
                     lbl_AngleOffset.Visible = false;
                     AngleOffset.Visible = false;
                     break;
                 // 0 = Angle is offset
                 case 1:
-                    SetAttributeValue(AnglePosition, 1);
+                    SetAttributeValue(AnglePosition, new TSDT.Integer(1));
                     // Show option for angle offset
                     lbl_AngleOffset.Visible = true;
                     AngleOffset.Visible = true;
                     break;
                 // default to centered
                 default:
-                    SetAttributeValue(AnglePosition, 0);
+                    SetAttributeValue(AnglePosition, new TSDT.Integer(0));
                     // Hide option for angle offset
                     lbl_AngleOffset.Visible = false;
                     AngleOffset.Visible = false;
@@ -153,13 +154,15 @@ namespace AngleBracingPlugin
             if (offsetEntered && angleOffset != 0.0)
             {
                 // set attribute value to value entered by user
-                SetAttributeValue(AngleOffset, angleOffset);
+                SetAttributeValue(AngleOffset, new TSDT.Distance(angleOffset));
             }
             else
             {
                 // default value to -1 to leave the angle centered.
-                SetAttributeValue(AngleOffset, -1);
+                SetAttributeValue(AngleOffset, new TSDT.Distance(-1));
             }
         }
+
+      
     }
 }

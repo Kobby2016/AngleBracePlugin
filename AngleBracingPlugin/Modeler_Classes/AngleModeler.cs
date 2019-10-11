@@ -68,7 +68,7 @@ namespace AngleBracingPlugin.Modeler_Classes
             {
                 // set pickedpoints to null
                 firstPoint = null;
-                secondPoint = null;
+                secondPoint = null; 
 
                 // read error message to user
                 MessageBox.Show("No points were picked");

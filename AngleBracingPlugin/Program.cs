@@ -16,7 +16,7 @@ namespace AngleBracingPlugin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AngleBraceFrm());
+            Application.Run(new Form1());
         }
     }
 }
