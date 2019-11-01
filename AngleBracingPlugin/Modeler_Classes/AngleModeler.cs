@@ -17,15 +17,30 @@ namespace AngleBracingPlugin.Modeler_Classes
         {
             // pass model reference value into base class
             base.classModel = classModel;
+
+            // create new beam
+            Beam modelerBeam = new Beam();
+            base.classBeam = modelerBeam;
+
+            // Set parameters for beam
+
+            // set parameters for beam
+            base.setProfile("L3X3X1/4");
+            base.setName("Angle Brace");
+            base.setFinish("Grey");
+            base.setClass("3");
+            base.setAssemblyNumPrefix("AXH");
+            base.setAssemblyStartNum(100);
+            base.setPartNumPrefix("P");
+            base.setPartStartNum(1);
+            base.setMaterialString("A992");
+
         }
 
-        public void ModelAngle(T3D.Point firstPoint, T3D.Point secondPoint, string beamProfile, bool isSecondAngle)
+        public void ModelAngle(T3D.Point firstPoint, T3D.Point secondPoint, string beamProfile, /*ContourPlate connectionPlate, double offset,*/ bool isSecondAngle)
         {
             try
-            {
-                // create new beam
-                Beam modelerBeam = new Beam();
-                base.classBeam = modelerBeam;
+            {               
 
                 // assign start and finish point to beam
                 base.classBeam.StartPoint = firstPoint;
@@ -33,31 +48,7 @@ namespace AngleBracingPlugin.Modeler_Classes
 
                 // set parameters for beam
                 base.setProfile(beamProfile);
-                base.setName("Angle Brace");
-                base.setFinish("Grey");
-                base.setClass("3");
-                base.setAssemblyNumPrefix("AXH");
-                base.setAssemblyStartNum(100);
-                base.setPartNumPrefix("P");
-                base.setPartStartNum(1);
-                base.setMaterialString("A992");
-
-                // If first angle
-                if (!isSecondAngle)
-                {
-                    // set position for beam
-                    base.classBeam.Position.Depth = Position.DepthEnum.MIDDLE; // set depth to behind
-                    base.classBeam.Position.Plane = Position.PlaneEnum.RIGHT; // set plane position to middle
-                    base.classBeam.Position.Rotation = Position.RotationEnum.BACK; // set rotation to top
-                }
-                else // In case of double angle brace connection, if angle is second angle.
-                {
-                    // set position for beam
-                    base.classBeam.Position.Depth = Position.DepthEnum.MIDDLE; // set depth to behind
-                    base.classBeam.Position.Plane = Position.PlaneEnum.RIGHT; // set plane position to middle
-                    base.classBeam.Position.Rotation = Position.RotationEnum.FRONT; // set rotation to top
-                }
-             
+                               
 
                 base.insertBeam(); // insert beam into model
 
@@ -72,6 +63,24 @@ namespace AngleBracingPlugin.Modeler_Classes
 
                 // read error message to user
                 MessageBox.Show("No points were picked");
+            }
+        }
+
+        public double GetAngleWidth()
+        {
+            try
+            {
+                // Get angle profile and convert to string
+                string angleProfile = base.getProfile().ToString();
+                // Remove L from angle profile
+                string angleWidth = angleProfile.Substring(1,1);
+
+                return (Double.Parse(angleWidth) * 25.4);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

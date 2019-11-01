@@ -144,23 +144,7 @@ namespace AngleBracingPlugin
         // Textbox to set distance for angle offset if that option is chosen
         private void AngleOffset_TextChanged(object sender, EventArgs e)
         {
-            double angleOffset;
-            bool offsetEntered;
-
-            // Check to see if AngleOffset value is null or 0
-            offsetEntered = Double.TryParse(AngleOffset.Text, out angleOffset);
-
-            // If conversion was successful and value is greater than 0
-            if (offsetEntered && angleOffset != 0.0)
-            {
-                // set attribute value to value entered by user
-                SetAttributeValue(AngleOffset, new TSDT.Distance(angleOffset));
-            }
-            else
-            {
-                // default value to -1 to leave the angle centered.
-                SetAttributeValue(AngleOffset, new TSDT.Distance(-1));
-            }
+            SetAttributeValue(AngleOffset, AngleOffset.Text);
         }
 
       

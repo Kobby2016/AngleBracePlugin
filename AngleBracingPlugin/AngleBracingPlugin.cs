@@ -27,7 +27,7 @@ namespace AngleBracingPlugin
         [StructuresField("AnglePosition")]
         public int AnglePosition;
         [StructuresField("AngleOffset")]
-        public double AngleOffset;
+        public string AngleOffset;
     }
 
     [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
@@ -53,6 +53,7 @@ namespace AngleBracingPlugin
         private T3D.Point _point3;
         private T3D.Point _point4;
         private TSM.Model _classModel;
+        TSM.TransformationPlane originalPlane;
 
 
         // The constructor argument defines the database class StructuresData and set the data to be used in the plug-in.
@@ -63,7 +64,13 @@ namespace AngleBracingPlugin
 
             // pass fields from Structures Data into AngleBracingPlugin class
             _angleBracingType = data.AngleBracingType;
-            _angleOffset = data.AngleOffset;
+
+            // Convert string offset value to double
+            if (!Double.TryParse(data.AngleOffset, out _angleOffset))
+            {
+                _angleOffset = 0.0;
+            }         
+            
             _anglePosition = data.AnglePosition;
             _angleBracingProfile = data.AngleBracingProfile;
             // Assign profile for angle
@@ -96,11 +103,17 @@ namespace AngleBracingPlugin
 
             try
             {
+                originalPlane = _classModel.GetWorkPlaneHandler().GetCurrentTransformationPlane();
+
+
                 // Prompt user to pick 4 plates 
                 _plate1 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate2 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate3 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate4 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
+
+                // Get coordinate system for first plate
+                _classModel.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TSM.TransformationPlane(_plate1.GetCoordinateSystem()));
 
                 // Prompt user to pick points
                 _point1 = anglePicker.PickPoint() as T3D.Point;
@@ -143,9 +156,38 @@ namespace AngleBracingPlugin
 
                 if (_angleBracingType == 0)
                 {
-                    // Create angle objects
+                    // Create angle objects and set position
                     AngleModeler firstAngle = new AngleModeler(_classModel);
+                    firstAngle.SetOnPlanePosition(1);
+                    firstAngle.SetRotationPosition(0);
+                    firstAngle.SetDepthPosition(1);
+                    double width = firstAngle.GetAngleWidth();
+                    // Adjust angle offset
+                    if (_anglePosition == 0)
+                    { 
+                        firstAngle.SetOnPlaneOffset((width / 2) * -1);
+                    }
+                    else
+                    {
+                        firstAngle.SetOnPlaneOffset((width - (_angleOffset * 25.4)) * -1);
+                    }
+
+                    // Second angle
                     AngleModeler secondAngle = new AngleModeler(_classModel);
+                    secondAngle.SetOnPlanePosition(1);
+                    secondAngle.SetRotationPosition(0);
+                    secondAngle.SetDepthPosition(1);
+                    secondAngle.SetRotationOffset(180);
+                    double width2 = secondAngle.GetAngleWidth();
+                    // Adjust angle offset
+                    if (_anglePosition == 0)
+                    {
+                        secondAngle.SetOnPlaneOffset((width2 / 2) * -1);
+                    }
+                    else
+                    {
+                        secondAngle.SetOnPlaneOffset((width2 - (_angleOffset * 25.4)) * -1);
+                    }
 
                     // Model angles
                     firstAngle.ModelAngle(firstPoint, thirdPoint, _angleProfile, false);
@@ -169,6 +211,11 @@ namespace AngleBracingPlugin
             {
                
                 throw;
+            }
+            finally
+            {
+                // Set workplane back to what user had before
+                _classModel.GetWorkPlaneHandler().SetCurrentTransformationPlane(originalPlane);
             }
 
             return true;

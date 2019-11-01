@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Modeler_Classes\Abstract_Classes\BeamModeler.cs" />
     <Compile Include="Modeler_Classes\AngleModeler.cs" />
+    <Compile Include="Modeler_Classes\PointBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -130,7 +130,7 @@
             this.AngleBracingProfile.FormattingEnabled = true;
             this.AngleBracingProfile.Items.AddRange(new object[] {
             "L3X3X1/4",
-            "L4X3X3/8",
+            "L4X4X3/8",
             "L5X5X1/2"});
             this.AngleBracingProfile.Location = new System.Drawing.Point(388, 54);
             this.AngleBracingProfile.Margin = new System.Windows.Forms.Padding(4);
@@ -199,8 +199,8 @@
             // AngleOffset
             // 
             this.structuresExtender.SetAttributeName(this.AngleOffset, "AngleOffset");
-            this.structuresExtender.SetAttributeTypeName(this.AngleOffset, "Distance");
-            this.structuresExtender.SetBindPropertyName(this.AngleOffset, "SelectedText");
+            this.structuresExtender.SetAttributeTypeName(this.AngleOffset, "String");
+            this.structuresExtender.SetBindPropertyName(this.AngleOffset, "Text");
             this.AngleOffset.Location = new System.Drawing.Point(115, 92);
             this.AngleOffset.Margin = new System.Windows.Forms.Padding(4);
             this.AngleOffset.Name = "AngleOffset";
