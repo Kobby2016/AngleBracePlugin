@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AngleBracingPlugin.cs" />
+    <Compile Include="AngleModelingUtil.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

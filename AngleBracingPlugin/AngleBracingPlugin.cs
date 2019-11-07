@@ -28,6 +28,14 @@ namespace AngleBracingPlugin
         public int AnglePosition;
         [StructuresField("AngleOffset")]
         public string AngleOffset;
+        [StructuresField("FirstOffset")]
+        public string FirstOffset;
+        [StructuresField("SecondOffset")]
+        public string SecondOffset;
+        [StructuresField("ThirdOffset")]
+        public string ThirdOffset;
+        [StructuresField("FourthOffset")]
+        public string FourthOffset;
     }
 
     [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
@@ -43,6 +51,10 @@ namespace AngleBracingPlugin
         private int _angleBracingProfile;
         private int _anglePosition;
         private double _angleOffset;
+        private double _firstOffset;
+        private double _secondOffset;
+        private double _thirdOffset;
+        private double _fourthOffset;
         private string _angleProfile;
         private TSM.ContourPlate _plate1;
         private TSM.ContourPlate _plate2;
@@ -64,17 +76,37 @@ namespace AngleBracingPlugin
 
             // pass fields from Structures Data into AngleBracingPlugin class
             _angleBracingType = data.AngleBracingType;
+            _anglePosition = data.AnglePosition;
+            _angleBracingProfile = data.AngleBracingProfile;
 
-            // Convert string offset value to double
+            // Convert string offset values to double
             if (!Double.TryParse(data.AngleOffset, out _angleOffset))
             {
                 _angleOffset = 0.0;
-            }         
-            
-            _anglePosition = data.AnglePosition;
-            _angleBracingProfile = data.AngleBracingProfile;
-            // Assign profile for angle
+            }
 
+            if (!Double.TryParse(data.FirstOffset, out _firstOffset))
+            {
+                _firstOffset = 0.0;
+            }
+
+            if (!Double.TryParse(data.SecondOffset, out _secondOffset))
+            {
+                _secondOffset = 0.0;
+            }
+
+            if (!Double.TryParse(data.ThirdOffset, out _thirdOffset))
+            {
+                _thirdOffset = 0.0;
+            }
+
+            if (!Double.TryParse(data.FourthOffset, out _fourthOffset))
+            {
+                _fourthOffset = 0.0;
+            }            
+     
+
+            // Assign profile for angle
             try
             {
                 _angleProfile = _angleType[_angleBracingProfile];
@@ -144,7 +176,11 @@ namespace AngleBracingPlugin
 
         public override bool Run(List<InputDefinition> Input)
         {
-            
+            List<T3D.Point> firstAnglePoints;
+            List<T3D.Point> secondAnglePoints;
+            List<T3D.Point> thirdAnglePoints;
+            List<T3D.Point> fourthAnglePoints;
+
             try
             {
 
@@ -153,6 +189,11 @@ namespace AngleBracingPlugin
                 T3D.Point secondPoint = (T3D.Point)Input.ElementAt(1).GetInput();
                 T3D.Point thirdPoint = (T3D.Point)Input.ElementAt(2).GetInput();
                 T3D.Point fourthPoint = (T3D.Point)Input.ElementAt(3).GetInput();
+
+                // Trim points
+                AngleModelingUtil angleModelingUtil = new AngleModelingUtil();
+                firstAnglePoints = angleModelingUtil.TrimPoints(firstPoint, (_firstOffset * 25.4), thirdPoint, (_thirdOffset * 25.4));
+                secondAnglePoints = angleModelingUtil.TrimPoints(fourthPoint, (_fourthOffset * 25.4), secondPoint, (_secondOffset * 25.4));
 
                 if (_angleBracingType == 0)
                 {
@@ -190,8 +231,8 @@ namespace AngleBracingPlugin
                     }
 
                     // Model angles
-                    firstAngle.ModelAngle(firstPoint, thirdPoint, _angleProfile, false);
-                    secondAngle.ModelAngle(fourthPoint, secondPoint, _angleProfile, false);
+                    firstAngle.ModelAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _angleProfile, false);
+                    secondAngle.ModelAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _angleProfile, false);
                 }
                 else if (_angleBracingType == 1)
                 {

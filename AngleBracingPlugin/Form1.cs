@@ -147,6 +147,29 @@ namespace AngleBracingPlugin
             SetAttributeValue(AngleOffset, AngleOffset.Text);
         }
 
-      
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FirstOffset_TextChanged(object sender, EventArgs e)
+        {
+            SetAttributeValue(FirstOffset, FirstOffset.Text);
+        }
+
+        private void SecondOffset_TextChanged(object sender, EventArgs e)
+        {
+            SetAttributeValue(SecondOffset, SecondOffset.Text);
+        }
+
+        private void ThirdOffset_TextChanged(object sender, EventArgs e)
+        {
+            SetAttributeValue(ThirdOffset, ThirdOffset.Text);
+        }
+
+        private void FourthOffset_TextChanged(object sender, EventArgs e)
+        {
+            SetAttributeValue(FourthOffset, FourthOffset.Text);
+        }
     }
 }
