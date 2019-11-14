@@ -58,10 +58,10 @@ namespace AngleBracingPlugin
         {
             // Assign values to fields of base class
             base.boltModel = boltModel;
-            base.newBoltArray.BoltSize = boltSize;
-            base.boltQuantity = boltQuantity;
-            base.boltStandard = boltStandard;
-            base.cutLength = cutLength;
+            base.SetBoltSize(boltSize);
+            base.SetBoltQuantity(boltQuantity);
+            base.SetBoltStandard(boltStandard);
+            base.SetCutLength(cutLength);
             base.SetOnPlanePosition(0);
             base.SetRotationPosition(3);
             base.SetDepthPosition(0);
