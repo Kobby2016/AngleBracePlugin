@@ -17,7 +17,9 @@ namespace AngleBracingPlugin
 {
     class AngleModelingUtil
     {
-        // Fields for AngleModelingUtil class
+        /// <summary>
+        /// Fields for AngleModelingUtil class
+        /// </summary>
         T3D.Point startPoint;
         T3D.Point endPoint;
         double xStart;
@@ -34,13 +36,23 @@ namespace AngleBracingPlugin
         double angleCos;
         double angleTan;
 
-
-
+        /// <summary>
+        /// Constructor for AngleModelingUtil class
+        /// </summary>
         public AngleModelingUtil()
         {
 
         }
 
+        /// <summary>
+        /// Method for determining the actual start and end points for the angle
+        /// based on points selected by the user and offsets entered by the user
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="startOffset"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="endOffset"></param>
+        /// <returns></returns>
         public List<T3D.Point>TrimPoints(T3D.Point startPoint, double startOffset, T3D.Point endPoint, double endOffset)
         {
             // List for returning points
