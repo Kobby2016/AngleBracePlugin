@@ -13,18 +13,24 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
 {
     public abstract class BeamModeler
     {
-        // fields for BeamModeler class
+        /// <summary>
+        /// Fields for BeamModeler class
+        /// </summary>
         protected Model classModel; // tekla model we will be working in
         protected Beam classBeam; // beam we will be modeling
 
-        // constructor for modeler class
+        /// <summary>
+        /// Constructor for modeler class
+        /// </summary>
         protected BeamModeler()
         {
 
         }
 
-
-        // method to set profile for beam
+        /// <summary>
+        /// Method to set profile for beam
+        /// </summary>
+        /// <param name="beamProfile"></param>
         public void setProfile(String beamProfile)
         {
             try
@@ -37,7 +43,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to retrieve profile for beam
+        /// <summary>
+        /// Method to retrieve profile for beam
+        /// </summary>
+        /// <returns></returns>
         public string getProfile()
         {
             try
@@ -52,7 +61,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             
         }
 
-        // method to set name for beam
+        /// <summary>
+        /// Method to set name for beam
+        /// </summary>
+        /// <param name="beamName"></param>
         public void setName(string beamName)
         {
             try
@@ -66,7 +78,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to retrieve name for beam
+        /// <summary>
+        /// Method to retrieve name for beam
+        /// </summary>
+        /// <returns></returns>
         public string getName()
         {
             try
@@ -81,7 +96,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
            
         }
 
-        // method to set finish for beam
+        /// <summary>
+        /// Method to set finish for beam
+        /// </summary>
+        /// <param name="beamFinish"></param>
         public void setFinish(string beamFinish)
         {
             try
@@ -95,7 +113,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to get finish for beam
+        /// <summary>
+        /// Method to get finish for beam
+        /// </summary>
+        /// <returns></returns>
         public string getFinish()
         {
             try
@@ -110,7 +131,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
 
         }
 
-        // method to set class for beam
+        /// <summary>
+        /// Method to set class for beam
+        /// </summary>
+        /// <param name="beamClass"></param>
         public void setClass(string beamClass)
         {
             try
@@ -124,7 +148,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to get class for beam
+        /// <summary>
+        /// Method to get class for beam
+        /// </summary>
+        /// <returns></returns>
         public string getClass()
         {
             try
@@ -139,7 +166,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
 
         }
 
-        // method to set assembly number prefix for beam
+        /// <summary>
+        /// Method to set assembly number prefix for beam
+        /// </summary>
+        /// <param name="assemblyNumPrefix"></param>
         public void setAssemblyNumPrefix(string assemblyNumPrefix)
         {
             try
@@ -153,7 +183,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to set assembly number start number
+        /// <summary>
+        /// Method to set assembly number start number
+        /// </summary>
+        /// <param name="assemblyStartNum"></param>
         public void setAssemblyStartNum(int assemblyStartNum)
         {
             try
@@ -167,7 +200,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to set assembly number prefix for beam
+        /// <summary>
+        /// Method to set assembly number prefix for beam
+        /// </summary>
+        /// <param name="partNumPrefix"></param>
         public void setPartNumPrefix(string partNumPrefix)
         {
             try
@@ -181,7 +217,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to set assembly number prefix for beam
+        /// <summary>
+        /// Method to set assembly number prefix for beam
+        /// </summary>
+        /// <param name="partStartNum"></param>
         public void setPartStartNum(int partStartNum)
         {
             try
@@ -195,7 +234,10 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to set assembly number prefix for beam
+        /// <summary>
+        /// Method to set assembly number prefix for beam
+        /// </summary>
+        /// <param name="beamMaterial"></param>
         public void setMaterialString(string beamMaterial)
         {
             try
@@ -209,7 +251,14 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // method to set "On plane" position for beam, defaults to middle
+        /// <summary>
+        /// Method to set "On plane" position for beam.
+        /// 0 = MIDDLE
+        /// 1 = RIGHT
+        /// 2 = LEFT
+        /// Defaults to 0
+        /// </summary>
+        /// <param name="position"></param>
         public void SetOnPlanePosition(int position)
         {
             switch (position)
@@ -228,14 +277,20 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
                     break;
             }
         }
-        
-        // Method to set plane offset 
+
+        /// <summary>
+        /// Method to set plane offset 
+        /// </summary>
+        /// <param name="offset"></param>
         public void SetOnPlaneOffset(double offset)
         {
             this.classBeam.Position.PlaneOffset = offset;
         }
 
-        // Method to get plane offset 
+        /// <summary>
+        /// Method to get plane offset 
+        /// </summary>
+        /// <returns></returns>
         public double getPlaneOffset()
         {
             try
@@ -250,7 +305,15 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
 
         }
 
-        // method to set "Rotation" position for beam, defaults to front
+        /// <summary>
+        /// Method to set "Rotation" position for beam.
+        /// 0 = FRONT
+        /// 1 = TOP
+        /// 2 = BACK
+        /// 3 = BELOW
+        /// Defaults to 0
+        /// </summary>
+        /// <param name="position"></param>
         public void SetRotationPosition(int position)
         {
             switch (position)
@@ -273,13 +336,19 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // Method to set rotation offset 
+        /// <summary>
+        /// Method to set rotation offset 
+        /// </summary>
+        /// <param name="offset"></param>
         public void SetRotationOffset(double offset)
         {
             this.classBeam.Position.RotationOffset = offset;
         }
 
-        // Method to get rotation offset 
+        /// <summary>
+        /// Method to get rotation offset 
+        /// </summary>
+        /// <returns></returns>
         public double getRotationOffset()
         {
             try
@@ -294,7 +363,14 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
 
         }
 
-        // method to set "At Depth" position for beam, defaults to front
+        /// <summary>
+        /// Method to set "At Depth" position for beam.
+        /// 0 = MIDDLE
+        /// 1 = FRONT
+        /// 2 = BEHIND
+        /// DEFAULTS TO 0
+        /// </summary>
+        /// <param name="position"></param>
         public void SetDepthPosition(int position)
         {
             switch (position)
@@ -314,13 +390,19 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             }
         }
 
-        // Method to set depth offset 
+        /// <summary>
+        /// Method to set depth offset 
+        /// </summary>
+        /// <param name="offset"></param>
         public void SetDepthOffset(double offset)
         {
             this.classBeam.Position.DepthOffset = offset;
         }
 
-        // Method to get depth offset 
+        /// <summary>
+        /// Method to get depth offset 
+        /// </summary>
+        /// <returns></returns>
         public double getDepthOffset()
         {
             try
@@ -333,17 +415,19 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
                 throw;
             }
 
-        }     
-    
+        }
 
-
-        // method to insert beam
+        /// <summary>
+        /// Method to insert beam
+        /// </summary>
         public void insertBeam()
         {
             this.classBeam.Insert();
         }
 
-        // method to update model
+        /// <summary>
+        /// Method to update model
+        /// </summary>
         public void updateModel()
         {
             this.classModel.CommitChanges();
