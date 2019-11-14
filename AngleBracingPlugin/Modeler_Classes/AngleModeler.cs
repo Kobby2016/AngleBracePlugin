@@ -13,6 +13,10 @@ namespace AngleBracingPlugin.Modeler_Classes
 {
     class AngleModeler : BeamModeler
     {
+        /// <summary>
+        /// Constructor for AngleModeler class
+        /// </summary>
+        /// <param name="classModel"></param>
         public AngleModeler(Model classModel)
         {
             // pass model reference value into base class
@@ -37,7 +41,14 @@ namespace AngleBracingPlugin.Modeler_Classes
 
         }
 
-        public void ModelAngle(T3D.Point firstPoint, T3D.Point secondPoint, string beamProfile, /*ContourPlate connectionPlate, double offset,*/ bool isSecondAngle)
+        /// <summary>
+        /// Method for modeling angle
+        /// </summary>
+        /// <param name="firstPoint"></param>
+        /// <param name="secondPoint"></param>
+        /// <param name="beamProfile"></param>
+        /// <param name="isSecondAngle"></param>
+        public void ModelAngle(T3D.Point firstPoint, T3D.Point secondPoint, string beamProfile, bool isSecondAngle)
         {
             try
             {               
@@ -66,6 +77,10 @@ namespace AngleBracingPlugin.Modeler_Classes
             }
         }
 
+        /// <summary>
+        /// Method for retrieving angle width
+        /// </summary>
+        /// <returns></returns>
         public double GetAngleWidth()
         {
             try
