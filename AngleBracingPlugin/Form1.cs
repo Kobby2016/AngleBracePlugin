@@ -177,7 +177,7 @@ namespace AngleBracingPlugin
 
         private void BoltQty_TextChanged(object sender, EventArgs e)
         {
-            SetAttributeValue();
+            SetAttributeValue(BoltQty, BoltQty.Text);
         }
     }
 }

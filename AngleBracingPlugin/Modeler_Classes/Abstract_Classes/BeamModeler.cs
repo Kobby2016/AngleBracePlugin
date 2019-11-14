@@ -28,6 +28,22 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         }
 
         /// <summary>
+        /// Method for retrieving class beam
+        /// </summary>
+        /// <returns></returns>
+        public Beam getBeam()
+        {
+            try
+            {
+                return this.classBeam;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Method to set profile for beam
         /// </summary>
         /// <param name="beamProfile"></param>

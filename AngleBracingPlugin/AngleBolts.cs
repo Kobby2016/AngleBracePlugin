@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using AngleBracingPlugin.Modeler_Classes.Abstract_Classes;
 
 // Tekla Structures Namespaces
@@ -18,32 +19,142 @@ namespace AngleBracingPlugin
 {
     class AngleBolts : BoltModeler
     {
-               
 
-
-        public AngleBolts(double boltSize)
+        public AngleBolts(TSM.Model boltModel)
+            : this(boltModel, 25.4, 1, "A325N", 250)
         {
-            /*
-            // Create new bolt array
-            // Set default Values
-            base.newBoltArray = new TSM.BoltArray();
-            base.startPoint = new T3D.Point(0,0,0);
-            base.endPoint = new T3D.Point(0, 0, 0);
-            base.boltQuantity = 1;
-            base.boltSize = boltSize;
-            base.boltSpaceX = 0;
-            base.boltSpaceY = 0;
-            base.startOffsetX = 0;
-            base.startOffsetY = 0;
-            base.startOffsetZ = 0;
-            base.cutLength = 150;
-            base.boltStandard = "A325N";
-            base.newBoltArray.Position.Plane = TSM.Position.PlaneEnum.MIDDLE;
-            base.newBoltArray.Position.Plane = TSM.Position.RotationEnum.BELOW;
-            base.newBoltArray.Position.Plane
 
-    */
+        }
+
+        public AngleBolts(TSM.Model boltModel, double boltSize)
+            : this(boltModel, boltSize, 1, "A325N", 250)
+        {
+
+        }
+
+ 
+        public AngleBolts(TSM.Model boltModel, double boltSize, int boltQuantity)
+            : this(boltModel, boltSize, boltQuantity, "A325N", 250)
+        {
+
+        }
+
+
+        public AngleBolts(TSM.Model boltModel, double boltSize, int boltQuantity, string boltStandard)
+            : this(boltModel, boltSize, boltQuantity, boltStandard, 250)
+        {
+
+        }
+
+        /// <summary>
+        /// Chained constructor for AngleBolts class
+        /// </summary>
+        /// <param name="boltModel"></param>
+        /// <param name="boltSize"></param>
+        /// <param name="boltQuantity"></param>
+        /// <param name="boltStandard"></param>
+        /// <param name="cutLength"></param>
+        public AngleBolts(TSM.Model boltModel, double boltSize, int boltQuantity, string boltStandard, double cutLength)
+        {
+            // Assign values to fields of base class
+            base.boltModel = boltModel;
+            base.newBoltArray.BoltSize = boltSize;
+            base.boltQuantity = boltQuantity;
+            base.boltStandard = boltStandard;
+            base.cutLength = cutLength;
+            base.SetOnPlanePosition(0);
+            base.SetRotationPosition(3);
+            base.SetDepthPosition(0);
+
+        }
+
+        /// <summary>
+        /// Method for bolting a single angle to a connection plate
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="boltSpacing"></param>
+        /// <param name="boltDx"></param>
+        /// <param name="firstUserAngle"></param>
+        /// <param name="firstUserPlate"></param>
+        public void BoltAngle(T3D.Point startPoint, T3D.Point endPoint, double boltSpacing, double boltDx, TSM.Beam firstUserAngle, TSM.ContourPlate firstUserPlate)
+        {
+            try
+            {
+                // Set bolt type to site
+                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
+
+                // Only one row of bolts
+                base.newBoltArray.AddBoltDistY(0);
+
+                // For each bolt, add spacing between bolts along X axis
+                for (int i = 0; i < base.boltQuantity; i++)
+                {
+                    base.newBoltArray.AddBoltDistX(boltSpacing);
+                }
+
+                // Add Dx bolt offset dimension to bolt array
+                base.newBoltArray.StartPointOffset.Dx = boltDx;
+
+                // Bolt connection plate to angle
+                base.newBoltArray.PartToBoltTo = firstUserAngle;
+                base.newBoltArray.PartToBeBolted = firstUserPlate;
+
+                // Insert bolts and update model
+                base.InsertBolts();
+                base.UpdateModel();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Bolting connection failed!");
+            }           
+
+        }
+
+        /// <summary>
+        /// Method for bolting two angles to a connection plate
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="boltSpacing"></param>
+        /// <param name="boltDx"></param>
+        /// <param name="firstUserAngle"></param>
+        /// <param name="secondUserAngle"></param>
+        /// <param name="firstUserPlate"></param>
+        public void BoltAngle(T3D.Point startPoint, T3D.Point endPoint, double boltSpacing, double boltDx, TSM.Beam firstUserAngle, TSM.Beam secondUserAngle, TSM.ContourPlate firstUserPlate)
+        {
+            try
+            {
+                // Set bolt type to site
+                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
+
+                // Only one row of bolts
+                base.newBoltArray.AddBoltDistY(0);
+
+                // For each bolt, add spacing between bolts along X axis
+                for (int i = 0; i < base.boltQuantity; i++)
+                {
+                    base.newBoltArray.AddBoltDistX(boltSpacing);
+                }
+
+                // Add Dx bolt offset dimension to bolt array
+                base.newBoltArray.StartPointOffset.Dx = boltDx;
+
+                // Bolt connection plate to angle
+                base.newBoltArray.PartToBoltTo = firstUserAngle;
+                base.newBoltArray.PartToBeBolted = firstUserPlate;
+                base.newBoltArray.PartToBeBolted = secondUserAngle;
+
+                // Insert bolts and update model
+                base.InsertBolts();
+                base.UpdateModel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bolting connection failed!");
+            }
            
+
         }
     }
 }

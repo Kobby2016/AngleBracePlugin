@@ -46,7 +46,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public BoltModeler()
         {
-            newBoltArray = new TSM.BoltArray();
+            
         }
 
         /// <summary>

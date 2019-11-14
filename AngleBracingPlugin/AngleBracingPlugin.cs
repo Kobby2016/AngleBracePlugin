@@ -54,6 +54,8 @@ namespace AngleBracingPlugin
         private int _anglePosition;
         private int _boltQty;
         private double _boltSize = 19.05;
+        private double _boltDX = 38.1;
+        private double _boltSpacing = 76.2;
         private double _angleOffset;
         private double _firstOffset;
         private double _secondOffset;
@@ -242,6 +244,17 @@ namespace AngleBracingPlugin
                     // Model angles
                     firstAngle.ModelAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _angleProfile, false);
                     secondAngle.ModelAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _angleProfile, false);
+                    // Generate bolts
+                    AngleBolts firstAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
+                    AngleBolts firstAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
+                    AngleBolts secondAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
+                    AngleBolts secondAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
+
+                    // Bolt angles to plates
+                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1),_boltSpacing, _boltDX, firstAngle.getBeam(), _plate1);
+                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, firstAngle.getBeam(), _plate3);
+                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, secondAngle.getBeam(), _plate4);
+                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, secondAngle.getBeam(), _plate2);
                 }
                 else if (_angleBracingType == 1)
                 {
