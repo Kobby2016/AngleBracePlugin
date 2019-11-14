@@ -49,6 +49,17 @@
             this.SecondOffset = new System.Windows.Forms.TextBox();
             this.ThirdOffset = new System.Windows.Forms.TextBox();
             this.FourthOffset = new System.Windows.Forms.TextBox();
+            this.AngleBracingTypeFlt = new System.Windows.Forms.CheckBox();
+            this.AngleBracingProfileFlt = new System.Windows.Forms.CheckBox();
+            this.FirstOffsetFlt = new System.Windows.Forms.CheckBox();
+            this.SecondOffsetFlt = new System.Windows.Forms.CheckBox();
+            this.ThirdOffsetFlt = new System.Windows.Forms.CheckBox();
+            this.FourthOffsetFlt = new System.Windows.Forms.CheckBox();
+            this.AnglePositionFlt = new System.Windows.Forms.CheckBox();
+            this.AngleOffsetFlt = new System.Windows.Forms.CheckBox();
+            this.lbl_BoltQuantity = new System.Windows.Forms.Label();
+            this.BoltQty = new System.Windows.Forms.TextBox();
+            this.BoltQtyFlt = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -123,7 +134,7 @@
             this.structuresExtender.SetAttributeTypeName(this.lbl_AngleProfile, null);
             this.lbl_AngleProfile.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.lbl_AngleProfile, null);
-            this.lbl_AngleProfile.Location = new System.Drawing.Point(320, 61);
+            this.lbl_AngleProfile.Location = new System.Drawing.Point(327, 61);
             this.lbl_AngleProfile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_AngleProfile.Name = "lbl_AngleProfile";
             this.lbl_AngleProfile.Size = new System.Drawing.Size(96, 17);
@@ -210,7 +221,7 @@
             this.structuresExtender.SetAttributeName(this.AngleOffset, "AngleOffset");
             this.structuresExtender.SetAttributeTypeName(this.AngleOffset, "String");
             this.structuresExtender.SetBindPropertyName(this.AngleOffset, "Text");
-            this.AngleOffset.Location = new System.Drawing.Point(131, 91);
+            this.AngleOffset.Location = new System.Drawing.Point(130, 91);
             this.AngleOffset.Margin = new System.Windows.Forms.Padding(4);
             this.AngleOffset.Name = "AngleOffset";
             this.AngleOffset.Size = new System.Drawing.Size(132, 22);
@@ -238,7 +249,7 @@
             this.structuresExtender.SetAttributeTypeName(this.lbl_Offset1, null);
             this.lbl_Offset1.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.lbl_Offset1, null);
-            this.lbl_Offset1.Location = new System.Drawing.Point(475, 96);
+            this.lbl_Offset1.Location = new System.Drawing.Point(475, 94);
             this.lbl_Offset1.Name = "lbl_Offset1";
             this.lbl_Offset1.Size = new System.Drawing.Size(62, 17);
             this.lbl_Offset1.TabIndex = 12;
@@ -262,7 +273,7 @@
             this.structuresExtender.SetAttributeTypeName(this.lbl_Offset3, null);
             this.lbl_Offset3.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.lbl_Offset3, null);
-            this.lbl_Offset3.Location = new System.Drawing.Point(699, 95);
+            this.lbl_Offset3.Location = new System.Drawing.Point(699, 94);
             this.lbl_Offset3.Name = "lbl_Offset3";
             this.lbl_Offset3.Size = new System.Drawing.Size(62, 17);
             this.lbl_Offset3.TabIndex = 12;
@@ -285,7 +296,7 @@
             this.structuresExtender.SetAttributeName(this.FirstOffset, "FirstOffset");
             this.structuresExtender.SetAttributeTypeName(this.FirstOffset, "String");
             this.structuresExtender.SetBindPropertyName(this.FirstOffset, "Text");
-            this.FirstOffset.Location = new System.Drawing.Point(543, 92);
+            this.FirstOffset.Location = new System.Drawing.Point(543, 91);
             this.FirstOffset.Name = "FirstOffset";
             this.FirstOffset.Size = new System.Drawing.Size(100, 22);
             this.FirstOffset.TabIndex = 13;
@@ -296,7 +307,7 @@
             this.structuresExtender.SetAttributeName(this.SecondOffset, "SecondOffset");
             this.structuresExtender.SetAttributeTypeName(this.SecondOffset, "String");
             this.structuresExtender.SetBindPropertyName(this.SecondOffset, "Text");
-            this.SecondOffset.Location = new System.Drawing.Point(543, 131);
+            this.SecondOffset.Location = new System.Drawing.Point(543, 130);
             this.SecondOffset.Name = "SecondOffset";
             this.SecondOffset.Size = new System.Drawing.Size(100, 22);
             this.SecondOffset.TabIndex = 14;
@@ -324,6 +335,147 @@
             this.FourthOffset.TabIndex = 16;
             this.FourthOffset.TextChanged += new System.EventHandler(this.FourthOffset_TextChanged);
             // 
+            // AngleBracingTypeFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.AngleBracingTypeFlt, "AngleBracingType");
+            this.structuresExtender.SetAttributeTypeName(this.AngleBracingTypeFlt, null);
+            this.AngleBracingTypeFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.AngleBracingTypeFlt, null);
+            this.structuresExtender.SetIsFilter(this.AngleBracingTypeFlt, true);
+            this.AngleBracingTypeFlt.Location = new System.Drawing.Point(12, 60);
+            this.AngleBracingTypeFlt.Name = "AngleBracingTypeFlt";
+            this.AngleBracingTypeFlt.Size = new System.Drawing.Size(18, 17);
+            this.AngleBracingTypeFlt.TabIndex = 17;
+            this.AngleBracingTypeFlt.UseVisualStyleBackColor = true;
+            // 
+            // AngleBracingProfileFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.AngleBracingProfileFlt, "AngleBracingProfile");
+            this.structuresExtender.SetAttributeTypeName(this.AngleBracingProfileFlt, null);
+            this.AngleBracingProfileFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.AngleBracingProfileFlt, null);
+            this.structuresExtender.SetIsFilter(this.AngleBracingProfileFlt, true);
+            this.AngleBracingProfileFlt.Location = new System.Drawing.Point(302, 61);
+            this.AngleBracingProfileFlt.Name = "AngleBracingProfileFlt";
+            this.AngleBracingProfileFlt.Size = new System.Drawing.Size(18, 17);
+            this.AngleBracingProfileFlt.TabIndex = 17;
+            this.AngleBracingProfileFlt.UseVisualStyleBackColor = true;
+            // 
+            // FirstOffsetFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.FirstOffsetFlt, "FirstOffset");
+            this.structuresExtender.SetAttributeTypeName(this.FirstOffsetFlt, null);
+            this.FirstOffsetFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.FirstOffsetFlt, null);
+            this.structuresExtender.SetIsFilter(this.FirstOffsetFlt, true);
+            this.FirstOffsetFlt.Location = new System.Drawing.Point(458, 95);
+            this.FirstOffsetFlt.Name = "FirstOffsetFlt";
+            this.FirstOffsetFlt.Size = new System.Drawing.Size(18, 17);
+            this.FirstOffsetFlt.TabIndex = 17;
+            this.FirstOffsetFlt.UseVisualStyleBackColor = true;
+            // 
+            // SecondOffsetFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.SecondOffsetFlt, "SecondOffset");
+            this.structuresExtender.SetAttributeTypeName(this.SecondOffsetFlt, null);
+            this.SecondOffsetFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.SecondOffsetFlt, null);
+            this.structuresExtender.SetIsFilter(this.SecondOffsetFlt, true);
+            this.SecondOffsetFlt.Location = new System.Drawing.Point(458, 134);
+            this.SecondOffsetFlt.Name = "SecondOffsetFlt";
+            this.SecondOffsetFlt.Size = new System.Drawing.Size(18, 17);
+            this.SecondOffsetFlt.TabIndex = 17;
+            this.SecondOffsetFlt.UseVisualStyleBackColor = true;
+            // 
+            // ThirdOffsetFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.ThirdOffsetFlt, "ThirdOffset");
+            this.structuresExtender.SetAttributeTypeName(this.ThirdOffsetFlt, null);
+            this.ThirdOffsetFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.ThirdOffsetFlt, null);
+            this.structuresExtender.SetIsFilter(this.ThirdOffsetFlt, true);
+            this.ThirdOffsetFlt.Location = new System.Drawing.Point(675, 95);
+            this.ThirdOffsetFlt.Name = "ThirdOffsetFlt";
+            this.ThirdOffsetFlt.Size = new System.Drawing.Size(18, 17);
+            this.ThirdOffsetFlt.TabIndex = 17;
+            this.ThirdOffsetFlt.UseVisualStyleBackColor = true;
+            // 
+            // FourthOffsetFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.FourthOffsetFlt, "FourthOffset");
+            this.structuresExtender.SetAttributeTypeName(this.FourthOffsetFlt, null);
+            this.FourthOffsetFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.FourthOffsetFlt, null);
+            this.structuresExtender.SetIsFilter(this.FourthOffsetFlt, true);
+            this.FourthOffsetFlt.Location = new System.Drawing.Point(675, 135);
+            this.FourthOffsetFlt.Name = "FourthOffsetFlt";
+            this.FourthOffsetFlt.Size = new System.Drawing.Size(18, 17);
+            this.FourthOffsetFlt.TabIndex = 17;
+            this.FourthOffsetFlt.UseVisualStyleBackColor = true;
+            // 
+            // AnglePositionFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.AnglePositionFlt, "AnglePosition");
+            this.structuresExtender.SetAttributeTypeName(this.AnglePositionFlt, null);
+            this.AnglePositionFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.AnglePositionFlt, null);
+            this.structuresExtender.SetIsFilter(this.AnglePositionFlt, true);
+            this.AnglePositionFlt.Location = new System.Drawing.Point(576, 64);
+            this.AnglePositionFlt.Name = "AnglePositionFlt";
+            this.AnglePositionFlt.Size = new System.Drawing.Size(18, 17);
+            this.AnglePositionFlt.TabIndex = 18;
+            this.AnglePositionFlt.UseVisualStyleBackColor = true;
+            // 
+            // AngleOffsetFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.AngleOffsetFlt, "AngleOffset");
+            this.structuresExtender.SetAttributeTypeName(this.AngleOffsetFlt, null);
+            this.AngleOffsetFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.AngleOffsetFlt, null);
+            this.structuresExtender.SetIsFilter(this.AngleOffsetFlt, true);
+            this.AngleOffsetFlt.Location = new System.Drawing.Point(12, 94);
+            this.AngleOffsetFlt.Name = "AngleOffsetFlt";
+            this.AngleOffsetFlt.Size = new System.Drawing.Size(18, 17);
+            this.AngleOffsetFlt.TabIndex = 18;
+            this.AngleOffsetFlt.UseVisualStyleBackColor = true;
+            this.AngleOffsetFlt.Visible = false;
+            // 
+            // lbl_BoltQuantity
+            // 
+            this.structuresExtender.SetAttributeName(this.lbl_BoltQuantity, null);
+            this.structuresExtender.SetAttributeTypeName(this.lbl_BoltQuantity, null);
+            this.lbl_BoltQuantity.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.lbl_BoltQuantity, null);
+            this.lbl_BoltQuantity.Location = new System.Drawing.Point(218, 134);
+            this.lbl_BoltQuantity.Name = "lbl_BoltQuantity";
+            this.lbl_BoltQuantity.Size = new System.Drawing.Size(97, 17);
+            this.lbl_BoltQuantity.TabIndex = 19;
+            this.lbl_BoltQuantity.Text = "Bolt Quantity: ";
+            // 
+            // BoltQty
+            // 
+            this.structuresExtender.SetAttributeName(this.BoltQty, "BoltQty");
+            this.structuresExtender.SetAttributeTypeName(this.BoltQty, "String");
+            this.structuresExtender.SetBindPropertyName(this.BoltQty, "Text");
+            this.BoltQty.Location = new System.Drawing.Point(316, 131);
+            this.BoltQty.Name = "BoltQty";
+            this.BoltQty.Size = new System.Drawing.Size(100, 22);
+            this.BoltQty.TabIndex = 20;
+            this.BoltQty.TextChanged += new System.EventHandler(this.BoltQty_TextChanged);
+            // 
+            // BoltQtyFlt
+            // 
+            this.structuresExtender.SetAttributeName(this.BoltQtyFlt, "BoltQty");
+            this.structuresExtender.SetAttributeTypeName(this.BoltQtyFlt, null);
+            this.BoltQtyFlt.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.BoltQtyFlt, null);
+            this.structuresExtender.SetIsFilter(this.BoltQtyFlt, true);
+            this.BoltQtyFlt.Location = new System.Drawing.Point(194, 136);
+            this.BoltQtyFlt.Name = "BoltQtyFlt";
+            this.BoltQtyFlt.Size = new System.Drawing.Size(18, 17);
+            this.BoltQtyFlt.TabIndex = 21;
+            this.BoltQtyFlt.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.structuresExtender.SetAttributeName(this, null);
@@ -332,6 +484,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.structuresExtender.SetBindPropertyName(this, null);
             this.ClientSize = new System.Drawing.Size(879, 495);
+            this.Controls.Add(this.BoltQtyFlt);
+            this.Controls.Add(this.BoltQty);
+            this.Controls.Add(this.lbl_BoltQuantity);
+            this.Controls.Add(this.AngleOffsetFlt);
+            this.Controls.Add(this.AnglePositionFlt);
+            this.Controls.Add(this.FourthOffsetFlt);
+            this.Controls.Add(this.ThirdOffsetFlt);
+            this.Controls.Add(this.SecondOffsetFlt);
+            this.Controls.Add(this.FirstOffsetFlt);
+            this.Controls.Add(this.AngleBracingProfileFlt);
+            this.Controls.Add(this.AngleBracingTypeFlt);
             this.Controls.Add(this.FourthOffset);
             this.Controls.Add(this.ThirdOffset);
             this.Controls.Add(this.SecondOffset);
@@ -385,6 +548,17 @@
         private System.Windows.Forms.TextBox SecondOffset;
         private System.Windows.Forms.TextBox ThirdOffset;
         private System.Windows.Forms.TextBox FourthOffset;
+        private System.Windows.Forms.CheckBox AngleBracingTypeFlt;
+        private System.Windows.Forms.CheckBox AngleBracingProfileFlt;
+        private System.Windows.Forms.CheckBox FirstOffsetFlt;
+        private System.Windows.Forms.CheckBox SecondOffsetFlt;
+        private System.Windows.Forms.CheckBox ThirdOffsetFlt;
+        private System.Windows.Forms.CheckBox FourthOffsetFlt;
+        private System.Windows.Forms.CheckBox AnglePositionFlt;
+        private System.Windows.Forms.CheckBox AngleOffsetFlt;
+        private System.Windows.Forms.Label lbl_BoltQuantity;
+        private System.Windows.Forms.TextBox BoltQty;
+        private System.Windows.Forms.CheckBox BoltQtyFlt;
     }
 }
 

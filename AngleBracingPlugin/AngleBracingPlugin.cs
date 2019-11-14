@@ -36,6 +36,8 @@ namespace AngleBracingPlugin
         public string ThirdOffset;
         [StructuresField("FourthOffset")]
         public string FourthOffset;
+        [StructuresField("BoltQty")]
+        public string BoltQty;
     }
 
     [Plugin("AngleBracingPlugin")] // Mandatory field which defines that the class is a plug-in-and stores the name of the plug-in to the system.
@@ -50,6 +52,8 @@ namespace AngleBracingPlugin
         private int _angleBracingType;
         private int _angleBracingProfile;
         private int _anglePosition;
+        private int _boltQty;
+        private double _boltSize = 19.05;
         private double _angleOffset;
         private double _firstOffset;
         private double _secondOffset;
@@ -82,28 +86,33 @@ namespace AngleBracingPlugin
             // Convert string offset values to double
             if (!Double.TryParse(data.AngleOffset, out _angleOffset))
             {
-                _angleOffset = 0.0;
+                _angleOffset = 0.0; // Default offset to 0 if parse fails
             }
 
             if (!Double.TryParse(data.FirstOffset, out _firstOffset))
             {
-                _firstOffset = 0.0;
+                _firstOffset = 0.0; // Default offset to 0 if parse fails
             }
 
             if (!Double.TryParse(data.SecondOffset, out _secondOffset))
             {
-                _secondOffset = 0.0;
+                _secondOffset = 0.0; // Default offset to 0 if parse fails
             }
 
             if (!Double.TryParse(data.ThirdOffset, out _thirdOffset))
             {
-                _thirdOffset = 0.0;
+                _thirdOffset = 0.0; // Default offset to 0 if parse fails
             }
 
             if (!Double.TryParse(data.FourthOffset, out _fourthOffset))
             {
-                _fourthOffset = 0.0;
-            }            
+                _fourthOffset = 0.0; // Default offset to 0 if parse fails
+            }
+
+            if (!Int32.TryParse(data.BoltQty, out _boltQty))
+            {
+                _boltQty = 1; // Default bolt quantity to 1 if parse fails
+            }
      
 
             // Assign profile for angle
@@ -210,7 +219,7 @@ namespace AngleBracingPlugin
                     }
                     else
                     {
-                        firstAngle.SetOnPlaneOffset((width - (_angleOffset * 25.4)) * -1);
+                        firstAngle.SetOnPlaneOffset((width - (_angleOffset * 25.4)));
                     }
 
                     // Second angle

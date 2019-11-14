@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="AngleBracingPlugin.cs" />
     <Compile Include="AngleModelingUtil.cs" />
+    <Compile Include="AngleBolts.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +98,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Modeler_Classes\Abstract_Classes\BeamModeler.cs" />
+    <Compile Include="Modeler_Classes\Abstract_Classes\BoltModeler.cs" />
     <Compile Include="Modeler_Classes\AngleModeler.cs" />
     <Compile Include="Modeler_Classes\PointBuilder.cs" />
     <Compile Include="Program.cs" />

@@ -123,6 +123,7 @@ namespace AngleBracingPlugin
                     // Hide option for angle offset
                     lbl_AngleOffset.Visible = false;
                     AngleOffset.Visible = false;
+                    AngleOffsetFlt.Visible = false;
                     break;
                 // 0 = Angle is offset
                 case 1:
@@ -130,6 +131,7 @@ namespace AngleBracingPlugin
                     // Show option for angle offset
                     lbl_AngleOffset.Visible = true;
                     AngleOffset.Visible = true;
+                    AngleOffsetFlt.Visible = true;
                     break;
                 // default to centered
                 default:
@@ -137,6 +139,7 @@ namespace AngleBracingPlugin
                     // Hide option for angle offset
                     lbl_AngleOffset.Visible = false;
                     AngleOffset.Visible = false;
+                    AngleOffsetFlt.Visible = false;
                     break;
             }
         }
@@ -170,6 +173,11 @@ namespace AngleBracingPlugin
         private void FourthOffset_TextChanged(object sender, EventArgs e)
         {
             SetAttributeValue(FourthOffset, FourthOffset.Text);
+        }
+
+        private void BoltQty_TextChanged(object sender, EventArgs e)
+        {
+            SetAttributeValue();
         }
     }
 }
