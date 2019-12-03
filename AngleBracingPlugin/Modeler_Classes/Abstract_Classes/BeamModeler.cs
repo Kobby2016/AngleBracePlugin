@@ -438,7 +438,15 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public void insertBeam()
         {
-            this.classBeam.Insert();
+            try
+            {
+                this.classBeam.Insert();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         /// <summary>
@@ -446,7 +454,15 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public void updateModel()
         {
-            this.classModel.CommitChanges();
+            try
+            {
+                this.classModel.CommitChanges();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
     }

@@ -1,7 +1,6 @@
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\AngleBracingPlugin\bin\Debug\AngleBracingPlugin.dll.config
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\AngleBracingPlugin\bin\Debug\AngleBracingPlugin.dll
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\AngleBracingPlugin\bin\Debug\AngleBracingPlugin.pdb
-C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\ObjDir\2017i\AngleBracingPlugin\AngleBracingPlugin.csprojAssemblyReference.cache
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\ObjDir\2017i\AngleBracingPlugin\AngleBracingPlugin.Form1.resources
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\ObjDir\2017i\AngleBracingPlugin\AngleBracingPlugin.Properties.Resources.resources
 C:\TeklaAPITraining\_AngleBracePluginTest\AngleBracingPlugin\ObjDir\2017i\AngleBracingPlugin\AngleBracingPlugin.csproj.GenerateResource.cache

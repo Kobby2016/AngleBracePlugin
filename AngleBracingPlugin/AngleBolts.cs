@@ -61,11 +61,7 @@ namespace AngleBracingPlugin
             base.SetBoltSize(boltSize);
             base.SetBoltQuantity(boltQuantity);
             base.SetBoltStandard(boltStandard);
-            base.SetCutLength(cutLength);
-            base.SetOnPlanePosition(0);
-            base.SetRotationPosition(3);
-            base.SetDepthPosition(0);
-
+            base.SetCutLength(cutLength);            
         }
 
         /// <summary>
@@ -80,9 +76,7 @@ namespace AngleBracingPlugin
         public void BoltAngle(T3D.Point startPoint, T3D.Point endPoint, double boltSpacing, double boltDx, TSM.Beam firstUserAngle, TSM.ContourPlate firstUserPlate)
         {
             try
-            {
-                // Set bolt type to site
-                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
+            {                
 
                 // Only one row of bolts
                 base.newBoltArray.AddBoltDistY(0);
@@ -93,13 +87,19 @@ namespace AngleBracingPlugin
                     base.newBoltArray.AddBoltDistX(boltSpacing);
                 }
 
+                // Set start point and end point for bolts
+                base.setStartPoint(startPoint);
+                base.setEndPoint(endPoint);
                 // Add Dx bolt offset dimension to bolt array
-                base.newBoltArray.StartPointOffset.Dx = boltDx;
-
+                base.SetStartOffsetX(boltDx);
                 // Bolt connection plate to angle
                 base.newBoltArray.PartToBoltTo = firstUserAngle;
                 base.newBoltArray.PartToBeBolted = firstUserPlate;
-
+                base.SetOnPlanePosition(0);
+                base.SetRotationPosition(3);
+                base.SetDepthPosition(0);
+                // Set bolt type to site
+                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
                 // Insert bolts and update model
                 base.InsertBolts();
                 base.UpdateModel();
@@ -125,8 +125,6 @@ namespace AngleBracingPlugin
         {
             try
             {
-                // Set bolt type to site
-                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
 
                 // Only one row of bolts
                 base.newBoltArray.AddBoltDistY(0);
@@ -137,14 +135,20 @@ namespace AngleBracingPlugin
                     base.newBoltArray.AddBoltDistX(boltSpacing);
                 }
 
+                // Set start point and end point for bolts               
+                base.setStartPoint(startPoint);
+                base.setEndPoint(endPoint);
+                // Set bolt type to site
+                base.newBoltArray.BoltType = TSM.BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
                 // Add Dx bolt offset dimension to bolt array
-                base.newBoltArray.StartPointOffset.Dx = boltDx;
-
+                base.SetStartOffsetX(boltDx);
                 // Bolt connection plate to angle
                 base.newBoltArray.PartToBoltTo = firstUserAngle;
                 base.newBoltArray.PartToBeBolted = firstUserPlate;
                 base.newBoltArray.PartToBeBolted = secondUserAngle;
-
+                base.SetOnPlanePosition(0);
+                base.SetRotationPosition(3);
+                base.SetDepthPosition(0);
                 // Insert bolts and update model
                 base.InsertBolts();
                 base.UpdateModel();
@@ -153,7 +157,6 @@ namespace AngleBracingPlugin
             {
                 MessageBox.Show("Bolting connection failed!");
             }
-           
 
         }
     }

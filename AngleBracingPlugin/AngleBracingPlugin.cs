@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,6 +73,7 @@ namespace AngleBracingPlugin
         private T3D.Point _point4;
         private TSM.Model _classModel;
         TSM.TransformationPlane originalPlane;
+        
 
 
         // The constructor argument defines the database class StructuresData and set the data to be used in the plug-in.
@@ -130,31 +132,29 @@ namespace AngleBracingPlugin
             {
                 _angleProfile = _angleType[0];
             }
-          
-           
-            
+
         }
 
 
         public override List<InputDefinition> DefineInput()
         {
            
-            // create new instance of TSMUI.Picker and input definition list.
+            // create new instance of TSMUI.Picker and input definition list
             TSMUI.Picker anglePicker = new TSMUI.Picker();
-            List<InputDefinition> PointList = new List<InputDefinition>();
-            
+            List<InputDefinition> InputList = new List<InputDefinition>();
+            // create array list to hold plates for input
+            ArrayList PlateList = new ArrayList();
 
             try
             {
                 originalPlane = _classModel.GetWorkPlaneHandler().GetCurrentTransformationPlane();
-
 
                 // Prompt user to pick 4 plates 
                 _plate1 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate2 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate3 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
                 _plate4 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
-
+              
                 // Get coordinate system for first plate
                 _classModel.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TSM.TransformationPlane(_plate1.GetCoordinateSystem()));
 
@@ -164,25 +164,33 @@ namespace AngleBracingPlugin
                 _point3 = anglePicker.PickPoint() as T3D.Point;
                 _point4 = anglePicker.PickPoint() as T3D.Point;
 
+                // Add plates to array list
+                PlateList.Add(_plate1);
+                PlateList.Add(_plate2);
+                PlateList.Add(_plate3);
+                PlateList.Add(_plate4);
+
                 // Create inputs to InputDefinition list.
                 InputDefinition Input1 = new InputDefinition(_point1);
                 InputDefinition Input2 = new InputDefinition(_point2);
                 InputDefinition Input3 = new InputDefinition(_point3);
                 InputDefinition Input4 = new InputDefinition(_point4);
+                InputDefinition Input5 = new InputDefinition(PlateList);
+                
 
                 // Add inputs to InputDefinition list.
-                PointList.Add(Input1);
-                PointList.Add(Input2);
-                PointList.Add(Input3);
-                PointList.Add(Input4);
+                InputList.Add(Input1);
+                InputList.Add(Input2);
+                InputList.Add(Input3);
+                InputList.Add(Input4);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }                                  
 
-            return PointList;
+            return InputList;
         }
 
         public override bool Run(List<InputDefinition> Input)
@@ -193,13 +201,20 @@ namespace AngleBracingPlugin
             List<T3D.Point> fourthAnglePoints;
 
             try
-            {
+            {                            
 
                 // Get T3D Points from Input
                 T3D.Point firstPoint = (T3D.Point)Input.ElementAt(0).GetInput();
                 T3D.Point secondPoint = (T3D.Point)Input.ElementAt(1).GetInput();
                 T3D.Point thirdPoint = (T3D.Point)Input.ElementAt(2).GetInput();
                 T3D.Point fourthPoint = (T3D.Point)Input.ElementAt(3).GetInput();
+                ArrayList PlateLIst = (ArrayList)Input.ElementAt(4).GetInput();
+
+                // Get plates from plate list
+                TSM.ContourPlate firstPlate = (TSM.ContourPlate)PlateLIst[0];
+                TSM.ContourPlate secondPlate = (TSM.ContourPlate)PlateLIst[1];
+                TSM.ContourPlate thirdPlate = (TSM.ContourPlate)PlateLIst[2];
+                TSM.ContourPlate fourthPlate = (TSM.ContourPlate)PlateLIst[3];
 
                 // Trim points
                 AngleModelingUtil angleModelingUtil = new AngleModelingUtil();
@@ -251,10 +266,10 @@ namespace AngleBracingPlugin
                     AngleBolts secondAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
 
                     // Bolt angles to plates
-                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1),_boltSpacing, _boltDX, firstAngle.getBeam(), _plate1);
-                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, firstAngle.getBeam(), _plate3);
-                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, secondAngle.getBeam(), _plate4);
-                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, secondAngle.getBeam(), _plate2);
+                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1),_boltSpacing, _boltDX, firstAngle.getBeam(), firstPlate);
+                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, firstAngle.getBeam(), thirdPlate);
+                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, secondAngle.getBeam(), fourthPlate);
+                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, secondAngle.getBeam(), secondPlate);
                 }
                 else if (_angleBracingType == 1)
                 {

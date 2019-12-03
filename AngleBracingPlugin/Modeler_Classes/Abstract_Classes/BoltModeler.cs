@@ -46,7 +46,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public BoltModeler()
         {
-            
+            newBoltArray = new TSM.BoltArray();
         }
 
         /// <summary>
@@ -90,6 +90,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
             try
             {
                 this.newBoltArray.SecondPosition = endPoint;
+            
             }
             catch (Exception ex)
             {
@@ -153,7 +154,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.boltSize = boltSize;
+                this.boltSize = boltSize = this.newBoltArray.BoltSize;
             }
             catch (Exception ex)
             {
@@ -253,7 +254,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetX = startOffsetX;
+                this.startOffsetX = startOffsetX = this.newBoltArray.StartPointOffset.Dx;
             }
             catch (Exception ex)
             {
@@ -285,7 +286,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetY = startOffsetY;
+                this.startOffsetY = startOffsetY = this.newBoltArray.StartPointOffset.Dy;
             }
             catch (Exception ex)
             {
@@ -317,7 +318,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetZ = startOffsetZ;
+                this.startOffsetZ = startOffsetZ = this.newBoltArray.StartPointOffset.Dz;
             }
             catch (Exception ex)
             {
@@ -349,7 +350,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetX = finishOffsetX;
+                this.finishOffsetX = finishOffsetX = this.newBoltArray.EndPointOffset.Dx;
             }
             catch (Exception ex)
             {
@@ -381,7 +382,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetY = finishOffsetY;
+                this.finishOffsetY = finishOffsetY = this.newBoltArray.EndPointOffset.Dy;
             }
             catch (Exception ex)
             {
@@ -413,7 +414,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetZ = finishOffsetZ;
+                this.finishOffsetZ = finishOffsetZ = this.newBoltArray.EndPointOffset.Dz;
             }
             catch (Exception ex)
             {
@@ -445,7 +446,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.cutLength = cutLength;
+                this.cutLength = cutLength = this.newBoltArray.CutLength;
             }
             catch (Exception ex)
             {
@@ -477,7 +478,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.boltStandard = boltStandard;
+                this.boltStandard = boltStandard = this.newBoltArray.BoltStandard;
             }
             catch (Exception ex)
             {
@@ -670,7 +671,15 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public void InsertBolts()
         {
-            this.newBoltArray.Insert();
+            try
+            {
+                this.newBoltArray.Insert();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         /// <summary>
@@ -678,7 +687,15 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         /// </summary>
         public void UpdateModel()
         {
-            this.boltModel.CommitChanges();
+            try
+            {
+                this.boltModel.CommitChanges();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
     }
 }
