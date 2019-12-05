@@ -249,7 +249,7 @@
             this.structuresExtender.SetAttributeTypeName(this.lbl_Offset1, null);
             this.lbl_Offset1.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.lbl_Offset1, null);
-            this.lbl_Offset1.Location = new System.Drawing.Point(475, 94);
+            this.lbl_Offset1.Location = new System.Drawing.Point(476, 133);
             this.lbl_Offset1.Name = "lbl_Offset1";
             this.lbl_Offset1.Size = new System.Drawing.Size(62, 17);
             this.lbl_Offset1.TabIndex = 12;
@@ -261,7 +261,7 @@
             this.structuresExtender.SetAttributeTypeName(this.lbl_Offset2, null);
             this.lbl_Offset2.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.lbl_Offset2, null);
-            this.lbl_Offset2.Location = new System.Drawing.Point(475, 134);
+            this.lbl_Offset2.Location = new System.Drawing.Point(476, 96);
             this.lbl_Offset2.Name = "lbl_Offset2";
             this.lbl_Offset2.Size = new System.Drawing.Size(62, 17);
             this.lbl_Offset2.TabIndex = 12;
@@ -296,7 +296,7 @@
             this.structuresExtender.SetAttributeName(this.FirstOffset, "FirstOffset");
             this.structuresExtender.SetAttributeTypeName(this.FirstOffset, "String");
             this.structuresExtender.SetBindPropertyName(this.FirstOffset, "Text");
-            this.FirstOffset.Location = new System.Drawing.Point(543, 91);
+            this.FirstOffset.Location = new System.Drawing.Point(544, 130);
             this.FirstOffset.Name = "FirstOffset";
             this.FirstOffset.Size = new System.Drawing.Size(100, 22);
             this.FirstOffset.TabIndex = 13;
@@ -307,7 +307,7 @@
             this.structuresExtender.SetAttributeName(this.SecondOffset, "SecondOffset");
             this.structuresExtender.SetAttributeTypeName(this.SecondOffset, "String");
             this.structuresExtender.SetBindPropertyName(this.SecondOffset, "Text");
-            this.SecondOffset.Location = new System.Drawing.Point(543, 130);
+            this.SecondOffset.Location = new System.Drawing.Point(544, 92);
             this.SecondOffset.Name = "SecondOffset";
             this.SecondOffset.Size = new System.Drawing.Size(100, 22);
             this.SecondOffset.TabIndex = 14;
@@ -368,7 +368,7 @@
             this.FirstOffsetFlt.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.FirstOffsetFlt, null);
             this.structuresExtender.SetIsFilter(this.FirstOffsetFlt, true);
-            this.FirstOffsetFlt.Location = new System.Drawing.Point(458, 95);
+            this.FirstOffsetFlt.Location = new System.Drawing.Point(459, 134);
             this.FirstOffsetFlt.Name = "FirstOffsetFlt";
             this.FirstOffsetFlt.Size = new System.Drawing.Size(18, 17);
             this.FirstOffsetFlt.TabIndex = 17;
@@ -381,7 +381,7 @@
             this.SecondOffsetFlt.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.SecondOffsetFlt, null);
             this.structuresExtender.SetIsFilter(this.SecondOffsetFlt, true);
-            this.SecondOffsetFlt.Location = new System.Drawing.Point(458, 134);
+            this.SecondOffsetFlt.Location = new System.Drawing.Point(459, 96);
             this.SecondOffsetFlt.Name = "SecondOffsetFlt";
             this.SecondOffsetFlt.Size = new System.Drawing.Size(18, 17);
             this.SecondOffsetFlt.TabIndex = 17;

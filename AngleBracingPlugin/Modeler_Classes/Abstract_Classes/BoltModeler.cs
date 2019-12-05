@@ -154,7 +154,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.boltSize = boltSize = this.newBoltArray.BoltSize;
+                this.boltSize = this.newBoltArray.BoltSize = boltSize;
             }
             catch (Exception ex)
             {
@@ -254,7 +254,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetX = startOffsetX = this.newBoltArray.StartPointOffset.Dx;
+                this.startOffsetX = this.newBoltArray.StartPointOffset.Dx = startOffsetX;
             }
             catch (Exception ex)
             {
@@ -286,7 +286,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetY = startOffsetY = this.newBoltArray.StartPointOffset.Dy;
+                this.startOffsetY = this.newBoltArray.StartPointOffset.Dy = startOffsetY;
             }
             catch (Exception ex)
             {
@@ -318,7 +318,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.startOffsetZ = startOffsetZ = this.newBoltArray.StartPointOffset.Dz;
+                this.startOffsetZ = this.newBoltArray.StartPointOffset.Dz = startOffsetZ;
             }
             catch (Exception ex)
             {
@@ -350,7 +350,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetX = finishOffsetX = this.newBoltArray.EndPointOffset.Dx;
+                this.finishOffsetX = this.newBoltArray.EndPointOffset.Dx = finishOffsetX;
             }
             catch (Exception ex)
             {
@@ -382,7 +382,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetY = finishOffsetY = this.newBoltArray.EndPointOffset.Dy;
+                this.finishOffsetY = this.newBoltArray.EndPointOffset.Dy = finishOffsetY;
             }
             catch (Exception ex)
             {
@@ -414,7 +414,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.finishOffsetZ = finishOffsetZ = this.newBoltArray.EndPointOffset.Dz;
+                this.finishOffsetZ = this.newBoltArray.EndPointOffset.Dz = finishOffsetZ;
             }
             catch (Exception ex)
             {
@@ -446,7 +446,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.cutLength = cutLength = this.newBoltArray.CutLength;
+                this.cutLength = this.newBoltArray.CutLength = cutLength;
             }
             catch (Exception ex)
             {
@@ -478,7 +478,7 @@ namespace AngleBracingPlugin.Modeler_Classes.Abstract_Classes
         {
             try
             {
-                this.boltStandard = boltStandard = this.newBoltArray.BoltStandard;
+                this.boltStandard = this.newBoltArray.BoltStandard = boltStandard;
             }
             catch (Exception ex)
             {

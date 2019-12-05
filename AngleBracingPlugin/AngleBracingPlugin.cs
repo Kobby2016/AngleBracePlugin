@@ -56,12 +56,14 @@ namespace AngleBracingPlugin
         private int _boltQty;
         private double _boltSize = 19.05;
         private double _boltDX = 38.1;
+        private double _boltDy;
         private double _boltSpacing = 76.2;
         private double _angleOffset;
         private double _firstOffset;
         private double _secondOffset;
         private double _thirdOffset;
         private double _fourthOffset;
+        private double _angleWidth;
         private string _angleProfile;
         private TSM.ContourPlate _plate1;
         private TSM.ContourPlate _plate2;
@@ -113,11 +115,11 @@ namespace AngleBracingPlugin
                 _fourthOffset = 0.0; // Default offset to 0 if parse fails
             }
 
+           
             if (!Int32.TryParse(data.BoltQty, out _boltQty))
             {
                 _boltQty = 1; // Default bolt quantity to 1 if parse fails
-            }
-     
+            }     
 
             // Assign profile for angle
             try
@@ -131,6 +133,15 @@ namespace AngleBracingPlugin
             catch(Exception ex)
             {
                 _angleProfile = _angleType[0];
+            }
+
+            if (!Double.TryParse(_angleProfile.Substring(1, 1), out _angleWidth))
+            {
+                _angleWidth = 0.0;
+            }
+            else
+            {
+                _angleWidth *= 25.4;
             }
 
         }
@@ -165,24 +176,24 @@ namespace AngleBracingPlugin
                 _point4 = anglePicker.PickPoint() as T3D.Point;
 
                 // Add plates to array list
-                PlateList.Add(_plate1);
-                PlateList.Add(_plate2);
-                PlateList.Add(_plate3);
-                PlateList.Add(_plate4);
+                PlateList.Add(_plate1.Identifier);
+                PlateList.Add(_plate2.Identifier);
+                PlateList.Add(_plate3.Identifier);
+                PlateList.Add(_plate4.Identifier);
 
                 // Create inputs to InputDefinition list.
                 InputDefinition Input1 = new InputDefinition(_point1);
                 InputDefinition Input2 = new InputDefinition(_point2);
                 InputDefinition Input3 = new InputDefinition(_point3);
                 InputDefinition Input4 = new InputDefinition(_point4);
-                InputDefinition Input5 = new InputDefinition(PlateList);
-                
+                InputDefinition Input5 = new InputDefinition(PlateList);                
 
                 // Add inputs to InputDefinition list.
                 InputList.Add(Input1);
                 InputList.Add(Input2);
                 InputList.Add(Input3);
                 InputList.Add(Input4);
+                InputList.Add(Input5);
 
             }
             catch (Exception ex)
@@ -195,26 +206,30 @@ namespace AngleBracingPlugin
 
         public override bool Run(List<InputDefinition> Input)
         {
+            // Fields for Run method
             List<T3D.Point> firstAnglePoints;
             List<T3D.Point> secondAnglePoints;
             List<T3D.Point> thirdAnglePoints;
             List<T3D.Point> fourthAnglePoints;
+            double angleOnPlaneOffset;
 
             try
             {                            
-
                 // Get T3D Points from Input
                 T3D.Point firstPoint = (T3D.Point)Input.ElementAt(0).GetInput();
                 T3D.Point secondPoint = (T3D.Point)Input.ElementAt(1).GetInput();
                 T3D.Point thirdPoint = (T3D.Point)Input.ElementAt(2).GetInput();
                 T3D.Point fourthPoint = (T3D.Point)Input.ElementAt(3).GetInput();
-                ArrayList PlateLIst = (ArrayList)Input.ElementAt(4).GetInput();
+                ArrayList PlateList = (ArrayList)Input.ElementAt(4).GetInput();
 
-                // Get plates from plate list
-                TSM.ContourPlate firstPlate = (TSM.ContourPlate)PlateLIst[0];
-                TSM.ContourPlate secondPlate = (TSM.ContourPlate)PlateLIst[1];
-                TSM.ContourPlate thirdPlate = (TSM.ContourPlate)PlateLIst[2];
-                TSM.ContourPlate fourthPlate = (TSM.ContourPlate)PlateLIst[3];
+                // Use plate Identifiers from PlateList to obtain plates for bolting connection
+                if (PlateList != null && PlateList.Count == 4)
+                {                   
+                    _plate1 = _classModel.SelectModelObject(PlateList[0] as Tekla.Structures.Identifier) as TSM.ContourPlate;
+                    _plate2 = _classModel.SelectModelObject(PlateList[1] as Tekla.Structures.Identifier) as TSM.ContourPlate;
+                    _plate3 = _classModel.SelectModelObject(PlateList[2] as Tekla.Structures.Identifier) as TSM.ContourPlate;
+                    _plate4 = _classModel.SelectModelObject(PlateList[3] as Tekla.Structures.Identifier) as TSM.ContourPlate;
+                }
 
                 // Trim points
                 AngleModelingUtil angleModelingUtil = new AngleModelingUtil();
@@ -228,15 +243,17 @@ namespace AngleBracingPlugin
                     firstAngle.SetOnPlanePosition(1);
                     firstAngle.SetRotationPosition(0);
                     firstAngle.SetDepthPosition(1);
-                    double width = firstAngle.GetAngleWidth();
+                    
+                    angleOnPlaneOffset = (_angleWidth - (_angleOffset * 25.4)) * -1;
+
                     // Adjust angle offset
                     if (_anglePosition == 0)
                     { 
-                        firstAngle.SetOnPlaneOffset((width / 2) * -1);
+                        firstAngle.SetOnPlaneOffset((_angleWidth / 2) * -1);
                     }
                     else
-                    {
-                        firstAngle.SetOnPlaneOffset((width - (_angleOffset * 25.4)));
+                    {                        
+                        firstAngle.SetOnPlaneOffset(angleOnPlaneOffset);
                     }
 
                     // Second angle
@@ -245,31 +262,44 @@ namespace AngleBracingPlugin
                     secondAngle.SetRotationPosition(0);
                     secondAngle.SetDepthPosition(1);
                     secondAngle.SetRotationOffset(180);
-                    double width2 = secondAngle.GetAngleWidth();
+                    
+
                     // Adjust angle offset
                     if (_anglePosition == 0)
                     {
-                        secondAngle.SetOnPlaneOffset((width2 / 2) * -1);
+                        secondAngle.SetOnPlaneOffset((_angleWidth / 2) * -1);
                     }
                     else
                     {
-                        secondAngle.SetOnPlaneOffset((width2 - (_angleOffset * 25.4)) * -1);
+                        secondAngle.SetOnPlaneOffset(angleOnPlaneOffset);
                     }
 
                     // Model angles
                     firstAngle.ModelAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _angleProfile, false);
                     secondAngle.ModelAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _angleProfile, false);
+
                     // Generate bolts
                     AngleBolts firstAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts firstAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts secondAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts secondAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
 
+                    // If angle is centered, set offset to 0
+                    if (_anglePosition == 0)
+                    {
+                        _boltDy = 0;
+                    }
+                    else
+                    {
+                        _boltDy = angleOnPlaneOffset + (_angleWidth / 2);
+                    }
+                    
                     // Bolt angles to plates
-                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1),_boltSpacing, _boltDX, firstAngle.getBeam(), firstPlate);
-                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, firstAngle.getBeam(), thirdPlate);
-                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, secondAngle.getBeam(), fourthPlate);
-                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, secondAngle.getBeam(), secondPlate);
+                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _boltSpacing, _boltDX, (-1* _boltDy), firstAngle.getBeam(), _plate1);
+                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, _boltDy, firstAngle.getBeam(), _plate3);
+                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, _boltDy, secondAngle.getBeam(), _plate4);
+                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, (-1 * _boltDy), secondAngle.getBeam(), _plate2);                    
+
                 }
                 else if (_angleBracingType == 1)
                 {
@@ -281,8 +311,6 @@ namespace AngleBracingPlugin
                     // REMOVE THIS MESSAGE WHEN DOUBLE ANGLE BRACING IS IMPLEMENTED!!!
                     MessageBox.Show("Invalid Angle Bracing Type");
                 }
-
-
 
             }
             catch (Exception Ex)
