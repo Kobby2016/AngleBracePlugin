@@ -74,15 +74,16 @@ namespace AngleBracingPlugin
         private T3D.Point _point3;
         private T3D.Point _point4;
         private TSM.Model _classModel;
-        TSM.TransformationPlane originalPlane;
+        private TSM.TransformationPlane _originalPlane;
         
 
 
         // The constructor argument defines the database class StructuresData and set the data to be used in the plug-in.
         public AngleBracingPlugin(StructuresData data)
         {
-            TSM.Model _model = _classModel = new TSM.Model();
+            
             Data = data;
+            _classModel = new TSM.Model();
 
             // pass fields from Structures Data into AngleBracingPlugin class
             _angleBracingType = data.AngleBracingType;
@@ -144,6 +145,7 @@ namespace AngleBracingPlugin
                 _angleWidth *= 25.4;
             }
 
+            _originalPlane = _classModel.GetWorkPlaneHandler().GetCurrentTransformationPlane();
         }
 
 
@@ -158,7 +160,7 @@ namespace AngleBracingPlugin
 
             try
             {
-                originalPlane = _classModel.GetWorkPlaneHandler().GetCurrentTransformationPlane();
+               
 
                 // Prompt user to pick 4 plates 
                 _plate1 = anglePicker.PickObject(TSMUI.Picker.PickObjectEnum.PICK_ONE_PART) as TSM.ContourPlate;
@@ -211,7 +213,9 @@ namespace AngleBracingPlugin
             List<T3D.Point> secondAnglePoints;
             List<T3D.Point> thirdAnglePoints;
             List<T3D.Point> fourthAnglePoints;
-            double angleOnPlaneOffset;
+            List<T3D.Point> offsetPoints;
+           double angleOnPlaneOffset;
+            double distanceToCenter;
 
             try
             {                            
@@ -220,6 +224,7 @@ namespace AngleBracingPlugin
                 T3D.Point secondPoint = (T3D.Point)Input.ElementAt(1).GetInput();
                 T3D.Point thirdPoint = (T3D.Point)Input.ElementAt(2).GetInput();
                 T3D.Point fourthPoint = (T3D.Point)Input.ElementAt(3).GetInput();
+                T3D.Point centerPoint = new T3D.Point();
                 ArrayList PlateList = (ArrayList)Input.ElementAt(4).GetInput();
 
                 // Use plate Identifiers from PlateList to obtain plates for bolting connection
@@ -275,14 +280,19 @@ namespace AngleBracingPlugin
                     }
 
                     // Model angles
-                    firstAngle.ModelAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _angleProfile, false);
-                    secondAngle.ModelAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _angleProfile, false);
+                    T3D.Point firstAngleStart = firstAnglePoints.ElementAt(0);
+                    T3D.Point firstAngleFinish = firstAnglePoints.ElementAt(1);
+                    T3D.Point secondAngleStart = secondAnglePoints.ElementAt(0);
+                    T3D.Point secondAngleFinish = secondAnglePoints.ElementAt(1);
+                    firstAngle.ModelAngle(firstAngleStart, firstAngleFinish, _angleProfile, false);
+                    secondAngle.ModelAngle(secondAngleStart, secondAngleFinish, _angleProfile, false);
 
                     // Generate bolts
                     AngleBolts firstAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts firstAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts secondAngleBolts1 = new AngleBolts(_classModel, _boltSize, _boltQty);
                     AngleBolts secondAngleBolts2 = new AngleBolts(_classModel, _boltSize, _boltQty);
+                    AngleBolts centerBolt = new AngleBolts(_classModel, _boltSize, 1);
 
                     // If angle is centered, set offset to 0
                     if (_anglePosition == 0)
@@ -293,12 +303,39 @@ namespace AngleBracingPlugin
                     {
                         _boltDy = angleOnPlaneOffset + (_angleWidth / 2);
                     }
+
                     
+
+                    // If angle is centered, set offset to 0
+                    if (_anglePosition == 0)
+                    {
+                        
+                        // Find center point for center bolt
+                        centerPoint = angleModelingUtil.CenterPoint(firstPoint, secondPoint, thirdPoint, fourthPoint);
+
+                        // Bolt center bolt
+                        distanceToCenter = Math.Sqrt(Math.Pow((centerPoint.X - firstPoint.X), 2) + Math.Pow(centerPoint.Y - firstPoint.Y, 2));
+                        centerBolt.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), 0.0, distanceToCenter, (-1 * _boltDy), firstAngle.getBeam());
+                    }
+                    else
+                    {
+                        //PROBLEM EXISTS SOMEWHERE IN THIS METHOD!!!
+                        ////////////////////////////////////////////////
+                        // Find center point for center bolt
+                        centerPoint = angleModelingUtil.CenterPoint(firstPoint, secondPoint, thirdPoint, fourthPoint);
+                        centerPoint = angleModelingUtil.OffsetCenter(firstAngleStart, firstAngleFinish, secondAngleStart, secondAngleFinish, centerPoint, _angleWidth, (_angleOffset * 25.4));
+                        // Bolt center bolt
+                        distanceToCenter = Math.Sqrt(Math.Pow((centerPoint.X - firstPoint.X), 2) + Math.Pow(centerPoint.Y - firstPoint.Y, 2));
+                        centerBolt.BoltAngle(firstAngleStart, firstAngleFinish, 0.0, distanceToCenter, (-1 * _boltDy), firstAngle.getBeam());
+                        ///////////////////////////////////////////////////
+                        ///////////////////////////////////////////////////
+                    }
+
                     // Bolt angles to plates
-                    firstAngleBolts1.BoltAngle(firstAnglePoints.ElementAt(0), firstAnglePoints.ElementAt(1), _boltSpacing, _boltDX, (-1* _boltDy), firstAngle.getBeam(), _plate1);
-                    firstAngleBolts2.BoltAngle(firstAnglePoints.ElementAt(1), firstAnglePoints.ElementAt(0), _boltSpacing, _boltDX, _boltDy, firstAngle.getBeam(), _plate3);
-                    secondAngleBolts1.BoltAngle(secondAnglePoints.ElementAt(0), secondAnglePoints.ElementAt(1), _boltSpacing, _boltDX, _boltDy, secondAngle.getBeam(), _plate4);
-                    secondAngleBolts2.BoltAngle(secondAnglePoints.ElementAt(1), secondAnglePoints.ElementAt(0), _boltSpacing, _boltDX, (-1 * _boltDy), secondAngle.getBeam(), _plate2);                    
+                    firstAngleBolts1.BoltAngle(firstAngleStart, firstAngleFinish, _boltSpacing, _boltDX, (-1 * _boltDy), firstAngle.getBeam(), _plate1);
+                    firstAngleBolts2.BoltAngle(firstAngleFinish, firstAngleStart, _boltSpacing, _boltDX, _boltDy, firstAngle.getBeam(), _plate3);
+                    secondAngleBolts1.BoltAngle(secondAngleStart, secondAngleFinish, _boltSpacing, _boltDX, _boltDy, secondAngle.getBeam(), _plate4);
+                    secondAngleBolts2.BoltAngle(secondAngleFinish, secondAngleStart, _boltSpacing, _boltDX, (-1 * _boltDy), secondAngle.getBeam(), _plate2);
 
                 }
                 else if (_angleBracingType == 1)
@@ -321,7 +358,7 @@ namespace AngleBracingPlugin
             finally
             {
                 // Set workplane back to what user had before
-                _classModel.GetWorkPlaneHandler().SetCurrentTransformationPlane(originalPlane);
+                _classModel.GetWorkPlaneHandler().SetCurrentTransformationPlane(_originalPlane);
             }
 
             return true;
